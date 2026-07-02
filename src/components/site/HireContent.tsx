@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PageHero, CtaStrip } from "./PageHero";
+import { PageGallery, type GalleryImage } from "./PageGallery";
 import { ServiceJsonLd } from "./ServiceJsonLd";
 import {
   Check,
@@ -31,6 +32,10 @@ export type HireData = {
   useCasesTitle: string;
   useCasesIntro?: string;
   useCases: { title: string; desc: string }[];
+  /** Photo gallery — section is hidden while empty. */
+  galleryTitle?: string;
+  galleryIntro?: string;
+  gallery?: GalleryImage[];
   /** Monthly "from" price (ex-GST) for Service Offer JSON-LD. */
   monthlyPriceFrom?: number;
 };
@@ -241,6 +246,13 @@ export function HireContent({ data }: { data: HireData }) {
           </div>
         </div>
       </section>
+
+      <PageGallery
+        title={data.galleryTitle}
+        intro={data.galleryIntro}
+        images={data.gallery ?? []}
+        tone="white"
+      />
 
       <CtaStrip />
     </>

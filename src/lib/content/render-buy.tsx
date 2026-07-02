@@ -47,8 +47,12 @@ export async function renderBuyPage(path: string) {
     sizesNote: d.sizesNote,
     whyTitle: d.whyTitle,
     why: d.why,
+    galleryTitle: d.galleryTitle,
+    galleryIntro: d.galleryIntro,
+    gallery: d.gallery,
     ctaLabel: d.ctaLabel,
-    productImage: d.productImage,
+    // Prefer an explicit product image; otherwise the first gallery photo.
+    productImage: d.productImage ?? d.gallery?.find((g) => g.src)?.src,
     productAvailability: d.productAvailability,
     productCondition: d.productCondition,
   };

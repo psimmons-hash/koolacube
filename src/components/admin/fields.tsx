@@ -3,6 +3,7 @@
 import { Plus, Trash2, GripVertical } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { ImageUploader } from "@/components/admin/ImageUploader";
 import { ICON_NAMES, getIcon } from "@/lib/icons";
 
 /** Editable list of plain strings (e.g. applications, challenges, helps). */
@@ -118,6 +119,56 @@ export function PairList<T extends Record<string, string>>({
       </div>
       <Button type="button" size="sm" variant="outline" onClick={add}>
         <Plus className="h-3.5 w-3.5" /> Add
+      </Button>
+    </div>
+  );
+}
+
+/** Editable list of photos ({src, alt}) uploaded to the media bucket. */
+export function GalleryList({
+  label,
+  items,
+  onChange,
+}: {
+  label: string;
+  items: { src: string; alt: string }[];
+  onChange: (items: { src: string; alt: string }[]) => void;
+}) {
+  const set = (i: number, patch: Partial<{ src: string; alt: string }>) =>
+    onChange(items.map((it, idx) => (idx === i ? { ...it, ...patch } : it)));
+  return (
+    <div className="space-y-1.5">
+      <label className="block text-sm font-medium text-foreground">{label}</label>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {items.map((it, i) => (
+          <div key={i} className="space-y-2 rounded-lg border border-border p-3">
+            <ImageUploader value={it.src} onChange={(src) => set(i, { src })} heightClass="h-32" />
+            <div className="flex items-center gap-2">
+              <Input
+                value={it.alt}
+                onChange={(e) => set(i, { alt: e.target.value })}
+                placeholder="Caption — shown on the photo (optional)"
+              />
+              <Button
+                type="button"
+                size="icon"
+                variant="ghost"
+                onClick={() => onChange(items.filter((_, idx) => idx !== i))}
+                title="Remove"
+              >
+                <Trash2 className="h-3.5 w-3.5 text-destructive" />
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <Button
+        type="button"
+        size="sm"
+        variant="outline"
+        onClick={() => onChange([...items, { src: "", alt: "" }])}
+      >
+        <Plus className="h-3.5 w-3.5" /> Add photo
       </Button>
     </div>
   );

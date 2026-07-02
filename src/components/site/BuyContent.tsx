@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PageHero, CtaStrip } from "./PageHero";
+import { PageGallery, type GalleryImage } from "./PageGallery";
 import { defaultAdvantages } from "./HireContent";
 import { ProductJsonLd } from "./ProductJsonLd";
 import { Check, ShieldCheck, ArrowRight, type LucideIcon } from "lucide-react";
@@ -30,6 +31,10 @@ export type BuyData = {
   sizesNote?: string;
   whyTitle: string;
   why: { title: string; desc: string }[];
+  /** Photo gallery — section is hidden while empty. */
+  galleryTitle?: string;
+  galleryIntro?: string;
+  gallery?: GalleryImage[];
   ctaLabel?: string;
   /** Product JSON-LD (Offer) hints — defaults: ogImage, InStock, NewCondition. */
   productImage?: string;
@@ -214,6 +219,13 @@ export function BuyContent({ data }: { data: BuyData }) {
           </div>
         </div>
       </section>
+
+      <PageGallery
+        title={data.galleryTitle}
+        intro={data.galleryIntro}
+        images={data.gallery ?? []}
+        tone="muted"
+      />
 
       <CtaStrip />
     </>

@@ -68,6 +68,8 @@ Also done earlier this session (pre-CMS): legacy WordPress redirects in `next.co
 
 The CMS is feature-complete. Any future page added to the site: add it to `PAGES` in `registry.ts`, give it defaults + a `render-*`/editor following an existing template, and wire the `[key]` dispatch.
 
+**Photo galleries (added 2026-07-02):** the 4 hire + 3 buy pages each have an optional admin-managed photo gallery. Optional `galleryTitle`/`galleryIntro`/`gallery: {src, alt}[]` on `HireStored`/`BuyStored`; uploads go to the public `media` bucket via the existing `ImageUploader` (WebP conversion), using the new `GalleryList` field in `components/admin/fields.tsx`. Public rendering is `components/site/PageGallery.tsx` (section hidden while empty, so defaults are unchanged). On buy pages the first gallery photo doubles as the Product JSON-LD image when `productImage` is unset.
+
 ### Historical progress notes
 
 Per template, the pattern is: serializable defaults in `src/lib/content/<tpl>.ts` (icons as name strings) → `src/lib/content/render-<tpl>.tsx` (`get*Page` / `*Metadata` / `render*Page`, resolves icons via `getIcon`) → public page reduced to a tiny file calling those → an editor in `src/app/admin/pages/[key]/<Tpl>PageEditor.tsx` → wired into the `[key]/page.tsx` dispatch. Shared field kit: `src/components/admin/fields.tsx` (`StringList` with `multiline`, `PairList`, `IconPicker`). Icons added to `lib/icons.ts` as needed (Wallet, RefreshCw, ClipboardCheck, ShieldCheck, Lock, Cpu, Check). Hire/Buy advantages + About compliance/support store icon NAME strings.

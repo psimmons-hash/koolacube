@@ -26,6 +26,10 @@ export type BuyStored = {
   sizesNote?: string;
   whyTitle: string;
   why: { title: string; desc: string }[];
+  /** Photo gallery — section is hidden on the public page while empty. */
+  galleryTitle?: string;
+  galleryIntro?: string;
+  gallery?: { src: string; alt: string }[];
   ctaLabel?: string;
   productImage?: string;
   productAvailability?: string;

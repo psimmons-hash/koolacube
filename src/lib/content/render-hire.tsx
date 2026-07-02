@@ -50,6 +50,9 @@ export async function renderHirePage(path: string) {
     useCasesTitle: d.useCasesTitle,
     useCasesIntro: d.useCasesIntro,
     useCases: d.useCases,
+    galleryTitle: d.galleryTitle,
+    galleryIntro: d.galleryIntro,
+    gallery: d.gallery,
     monthlyPriceFrom: d.monthlyPriceFrom,
   };
   return (

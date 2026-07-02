@@ -27,6 +27,10 @@ export type HireStored = {
   useCasesTitle: string;
   useCasesIntro?: string;
   useCases: { title: string; desc: string }[];
+  /** Photo gallery — section is hidden on the public page while empty. */
+  galleryTitle?: string;
+  galleryIntro?: string;
+  gallery?: { src: string; alt: string }[];
   monthlyPriceFrom?: number;
 };
 

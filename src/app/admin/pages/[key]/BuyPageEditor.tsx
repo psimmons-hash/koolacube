@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { StringList, PairList, IconPicker } from "@/components/admin/fields";
+import { StringList, PairList, IconPicker, GalleryList } from "@/components/admin/fields";
 import { Plus, Trash2, Check } from "lucide-react";
 
 export default function BuyPageEditor({
@@ -146,6 +146,33 @@ export default function BuyPageEditor({
             onChange={(v) => set("why", v)}
             a={{ key: "title", placeholder: "Reason title" }}
             b={{ key: "desc", placeholder: "Description", textarea: true }}
+          />
+        </div>
+      </Section>
+
+      <Section title="Photo gallery">
+        <div className="space-y-4">
+          <p className="text-xs text-muted-foreground">
+            The gallery section only appears on the page once at least one photo is added. The
+            first photo is also used as the product image in search-engine structured data.
+          </p>
+          <Field label="Section title (optional — defaults to “Photo Gallery”)">
+            <Input
+              value={form.galleryTitle ?? ""}
+              onChange={(e) => set("galleryTitle", e.target.value)}
+            />
+          </Field>
+          <Field label="Section intro (optional)">
+            <Textarea
+              rows={2}
+              value={form.galleryIntro ?? ""}
+              onChange={(e) => set("galleryIntro", e.target.value)}
+            />
+          </Field>
+          <GalleryList
+            label="Photos"
+            items={form.gallery ?? []}
+            onChange={(v) => set("gallery", v)}
           />
         </div>
       </Section>
