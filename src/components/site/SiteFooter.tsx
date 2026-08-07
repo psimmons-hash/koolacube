@@ -15,13 +15,14 @@ export function SiteFooter({
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4">
         <div className="md:col-span-1">
           <div className="flex items-center gap-3">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/koolacube-logo.webp"
-              alt="Koolacube"
-              className="h-12 w-12 rounded-full bg-white p-0.5"
+              src={settings.footerLogoUrl}
+              alt={settings.footerBrandName}
+              className="h-12 w-12 rounded-full bg-white p-0.5 object-contain"
             />
             <span className="font-display text-xl font-bold tracking-wide text-white">
-              KOOLACUBE
+              {settings.footerBrandName}
             </span>
           </div>
           <p className="mt-4 text-sm leading-relaxed">{settings.footerBlurb}</p>

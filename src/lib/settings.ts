@@ -22,6 +22,10 @@ export type EffectiveSettings = {
   };
   tagline: string;
   description: string;
+  /** Footer logo image (public path or uploaded URL). */
+  footerLogoUrl: string;
+  /** Footer wordmark shown next to the logo. */
+  footerBrandName: string;
   footerBlurb: string;
   /** Small "Backed by …" badge under the footer blurb. */
   footerBackedBy: string;
@@ -40,6 +44,8 @@ export const SETTINGS_DEFAULTS: EffectiveSettings = {
   address: { ...SITE.address },
   tagline: SITE.tagline,
   description: SITE.description,
+  footerLogoUrl: "/koolacube-logo.webp",
+  footerBrandName: "KOOLACUBE",
   footerBlurb: "Reliable commercial cold storage for SE Queensland businesses.",
   footerBackedBy: "Backed by HVACR Group / ACRO Refrigeration",
   footerColumns: [

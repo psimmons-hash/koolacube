@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { ImageUploader } from "@/components/admin/ImageUploader";
 import { Check, Plus, Trash2 } from "lucide-react";
 
 export default function SettingsClient({
@@ -178,10 +179,26 @@ export default function SettingsClient({
 
       <Section title="Footer">
         <p className="-mt-2 mb-4 text-xs text-muted-foreground">
-          The footer’s logo and Contact column are built from the details above. Edit the blurb,
-          the “Backed by” badge, the bottom note and the link columns here.
+          The footer’s Contact column is built from the details above. Edit the logo, wordmark,
+          blurb, the “Backed by” badge, the bottom note and the link columns here.
         </p>
-        <div className="space-y-4">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <FieldWrap label="Footer logo">
+            <ImageUploader
+              value={form.footerLogoUrl}
+              onChange={(url) => set("footerLogoUrl", url)}
+              heightClass="h-24"
+            />
+          </FieldWrap>
+          <FieldWrap label="Footer wordmark">
+            <Input
+              value={form.footerBrandName}
+              onChange={(e) => set("footerBrandName", e.target.value)}
+              placeholder="KOOLACUBE"
+            />
+          </FieldWrap>
+        </div>
+        <div className="mt-4 space-y-4">
           <FieldWrap label="Footer blurb">
             <Textarea
               rows={2}
