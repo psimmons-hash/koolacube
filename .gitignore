@@ -28,3 +28,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code artifacts
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+.mcp.json
