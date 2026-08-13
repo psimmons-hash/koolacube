@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Phone, Check, X, Snowflake, ArrowRight } from "lucide-react";
 import { FaqList } from "@/components/site/FaqList";
 import { BlogStrip } from "@/components/site/BlogStrip";
+import { ExHireSalesCallout } from "@/components/site/ExHireSalesCallout";
 import { getPublishedFaqs } from "@/lib/faqs";
 import { HOME_DEFAULT, type HomeStored } from "@/lib/content/home";
 import { getPageContent } from "@/lib/content/page-content.server";
@@ -269,6 +270,8 @@ export async function renderHomePage() {
           </div>
         </div>
       </section>
+
+      <ExHireSalesCallout />
 
       {/* AVAILABLE PREVIEW */}
       <section className="bg-muted/40 py-20">

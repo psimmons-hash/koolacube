@@ -27,7 +27,6 @@ const entries: Entry[] = [
   { path: "/cold-room-hire-gold-coast", priority: 0.8, changeFrequency: "monthly" },
   { path: "/cold-room-hire-sunshine-coast", priority: 0.8, changeFrequency: "monthly" },
   { path: "/cold-room-sales-queensland", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/ex-hire-cold-rooms-for-sale", priority: 0.7, changeFrequency: "monthly" },
   { path: "/cold-room-hire-for-butchers", priority: 0.6, changeFrequency: "monthly" },
   { path: "/cold-room-hire-for-restaurants", priority: 0.6, changeFrequency: "monthly" },
   { path: "/cold-room-hire-for-food-manufacturers", priority: 0.6, changeFrequency: "monthly" },

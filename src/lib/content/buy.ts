@@ -113,43 +113,100 @@ export const BUY_DEFAULTS: Record<string, BuyStored> = {
   },
 
   "/buy/ex-hire": {
-    metaTitle: "Ex-Hire Cold Rooms for Sale | Koolacube",
+    metaTitle: "Second-Hand & Ex-Hire Cold Rooms for Sale SE QLD",
     metaDescription:
-      "Fully serviced and tested ex-hire cold rooms, freezer rooms and dual temp units for sale. A cost-effective way into commercial cold storage. Stock changes regularly — call to confirm.",
+      "1.8m x 2.4m ex-hire cold rooms and freezer rooms for sale from $10,500. Very good condition, many like new. Inspected and tested by Koolacube.",
     crumb: "Buy / Ex-Hire",
-    title: "Ex-Hire Cold Rooms for Sale",
+    title: "Second-Hand and Ex-Hire Cold Rooms for Sale",
     intro:
-      "Fully serviced and tested ex-hire cold rooms, freezer rooms and dual temp units — a cost-effective way into commercial cold storage. Stock changes regularly, so get in touch for what's currently available.",
-    optionsTitle: "Why buy ex-hire",
+      "Koolacube currently has 1.8m × 2.4m ex-hire cold rooms and freezer rooms for sale from $10,500. Units are in very good condition, with many presenting like new. Each unit is inspected and tested before sale. Stock is limited and changes as fleet units are released.",
+    optionsTitle: "Current Second-Hand Cold Rooms for Sale",
     options: [
-      { title: "Cost-effective", desc: "A lower price point than buying brand-new." },
-      { title: "Tested & refurbished", desc: "Inspected and serviced before sale." },
-      { title: "Ready immediately", desc: "Available now, subject to current stock." },
-      { title: "Inspection welcome", desc: "View the unit before you buy." },
+      {
+        title: "1.8m × 2.4m Cold Rooms",
+        desc: "Ex-hire chilled-storage units currently available.",
+      },
+      {
+        title: "1.8m × 2.4m Freezer Rooms",
+        desc: "Ex-hire frozen-storage units currently available.",
+      },
+      {
+        title: "From $10,500",
+        desc: "Entry pricing depends on the actual unit, specification and condition.",
+      },
+      {
+        title: "Very Good Condition",
+        desc: "Many units present like new; inspection is welcome before purchase.",
+      },
     ],
-    overviewTitle: "Professionally Refurbished Cold Rooms for Sale",
+    overviewTitle: "Commercial Ex-Hire Cold Rooms and Freezer Rooms Available Now",
     overview: [
-      "Our ex-hire cold rooms are returned from the field, fully inspected, serviced and refurbished as required before resale. You get commercial-grade refrigeration at a lower cost — ideal for cafés, restaurants and businesses wanting to own their cold storage without the price of new.",
-      "All units include insulated panels, food-grade interiors, heavy-duty refrigeration systems and digital temperature controllers.",
+      "These are genuine Koolacube fleet units, not unknown second-hand equipment sourced from a third party. They have operated in our commercial hire fleet and are inspected and tested before being offered for sale.",
+      "Available stock currently includes 1.8m × 2.4m cool rooms and freezer rooms. Exact age, power requirements, temperature range, condition and configuration vary by unit, so buyers can inspect the actual unit before committing.",
     ],
-    advantages: defaultAdvantages,
+    advantagesIntro:
+      "Buy from a refrigeration-backed operator with known fleet history, inspection before sale and practical support to confirm the unit suits your site.",
+    advantages: [
+      {
+        icon: "RefreshCw",
+        title: "Known Fleet History",
+        desc: "These are Koolacube fleet units with known commercial service history, not unknown equipment sourced from a third party.",
+      },
+      {
+        icon: "ClipboardCheck",
+        title: "Inspected and Tested",
+        desc: "Each cold room or freezer room is checked before sale and the actual unit can be inspected before purchase.",
+      },
+      {
+        icon: "Wrench",
+        title: "Refrigeration-Backed Supplier",
+        desc: "Koolacube is supported by qualified refrigeration technicians through ACRO Refrigeration and the HVACR Group.",
+      },
+    ],
     specsTitle: "Modular Cold Room Specifications",
     specs: sharedSpecs,
-    sizesTitle: "Standard Cold Room Sizes",
-    sizesIntro: "Ex-hire availability changes regularly — common sizes include:",
+    sizesTitle: "Current Ex-Hire Sizes",
+    sizesIntro:
+      "Current stock includes 1.8m × 2.4m chilled and frozen units. Other sizes may become available as the hire fleet rotates.",
     sizes: [
-      { size: "3m Unit", suited: "Cafés, retail, small kitchens", availability: "Ex-Hire" },
-      { size: "6m Unit", suited: "Restaurants, florists, aged-care", availability: "Ex-Hire" },
-      { size: "9m Unit", suited: "Large venues, industrial use", availability: "Ex-Hire / New" },
+      {
+        size: "1.8m x 2.4m Cold Room",
+        suited: "Cafés, restaurants, retail food and chilled overflow storage",
+        availability: "Available Now",
+      },
+      {
+        size: "1.8m x 2.4m Freezer Room",
+        suited: "Commercial kitchens, butchers, seafood and frozen stock",
+        availability: "Available Now",
+      },
+      {
+        size: "Other Sizes / Dual Temp",
+        suited: "Larger or mixed-temperature requirements",
+        availability: "Ask About Fleet Releases",
+      },
     ],
-    sizesNote: "Stock changes regularly — call to confirm current availability.",
-    whyTitle: "Why Buy Ex-Hire From Us?",
+    sizesNote:
+      "Ex-hire units start from $10,500. Stock, price and condition are confirmed against the actual unit available.",
+    whyTitle: "Why Buy an Ex-Hire Unit From Koolacube?",
     why: [
-      { title: "Tested Before Sale", desc: "Every unit is inspected and serviced before it leaves our yard." },
-      { title: "Cost-Effective", desc: "Commercial-grade cold storage at a lower price than buying new." },
-      { title: "Relocatable", desc: "Portable designs that can be moved and reconfigured as your business grows." },
-      { title: "Backed by ACRO Refrigeration", desc: "Supported by qualified refrigeration technicians and the HVACR Group." },
+      {
+        title: "Very Good Condition",
+        desc: "Available units are in very good condition, with many presenting like new.",
+      },
+      {
+        title: "Lower Capital Cost",
+        desc: "Own commercial cold storage from $10,500 instead of paying the full cost of a new build.",
+      },
+      {
+        title: "Inspection Welcome",
+        desc: "Inspect the actual unit, condition and configuration before committing to purchase.",
+      },
+      {
+        title: "Relocatable Commercial Storage",
+        desc: "Skid-mounted units can be moved or repositioned as your site and storage needs change.",
+      },
     ],
+    ctaLabel: "Check Current Ex-Hire Stock",
     productImage: "/unit-coldroom.jpg",
     productAvailability: "https://schema.org/LimitedAvailability",
     productCondition: "https://schema.org/RefurbishedCondition",

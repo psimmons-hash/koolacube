@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PageHero, CtaStrip } from "@/components/site/PageHero";
 import { BlogStrip } from "@/components/site/BlogStrip";
+import { ExHireSalesCallout } from "@/components/site/ExHireSalesCallout";
 import { getPublishedUnits, type Unit } from "@/lib/units";
 import { getIntroPage, introPageMetadata } from "@/lib/content/render-intro";
 import { getIcon } from "@/lib/icons";
@@ -47,6 +48,8 @@ export default async function Page() {
           })}
         </div>
       </section>
+
+      <ExHireSalesCallout tone="white" />
 
       {units.map((unit, idx) => (
         <UnitSection key={unit.slug} unit={unit} alt={idx % 2 === 1} />

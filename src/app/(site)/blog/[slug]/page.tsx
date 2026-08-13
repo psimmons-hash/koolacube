@@ -43,6 +43,17 @@ export default async function BlogPostPage({
   const post = await getPostBySlug(slug);
   if (!post) notFound();
 
+  const exHireLink = {
+    label: "Second-Hand & Ex-Hire Cold Rooms for Sale",
+    href: "/buy/ex-hire",
+  };
+  const shouldLinkToExHire =
+    post.slug === "cold-room-vs-freezer-room-which-do-you-need" &&
+    !post.related_links.some((link) => link.href === exHireLink.href);
+  const relatedLinks = shouldLinkToExHire
+    ? [...post.related_links, exHireLink]
+    : post.related_links;
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -103,13 +114,13 @@ export default async function BlogPostPage({
             ))}
           </div>
 
-          {post.related_links.length > 0 && (
+          {relatedLinks.length > 0 && (
             <div className="mt-14 rounded-lg border border-cold-blue/30 bg-cold-blue/5 p-6 md:p-8">
               <h2 className="text-xs font-semibold uppercase tracking-widest text-cold-blue">
                 Related to this article
               </h2>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {post.related_links.map((link) => (
+                {relatedLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}

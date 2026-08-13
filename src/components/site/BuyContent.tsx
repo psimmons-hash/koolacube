@@ -50,7 +50,15 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function BuyContent({ data }: { data: BuyData }) {
+export function BuyContent({
+  data,
+  afterHero,
+  beforeCta,
+}: {
+  data: BuyData;
+  afterHero?: React.ReactNode;
+  beforeCta?: React.ReactNode;
+}) {
   return (
     <>
       <ProductJsonLd
@@ -61,6 +69,8 @@ export function BuyContent({ data }: { data: BuyData }) {
         itemCondition={data.productCondition}
       />
       <PageHero eyebrow="Buy" crumb={data.crumb} title={data.title} intro={data.intro} />
+
+      {afterHero}
 
       {/* Sales options */}
       <section className="bg-white py-16 md:py-20">
@@ -226,6 +236,8 @@ export function BuyContent({ data }: { data: BuyData }) {
         images={data.gallery ?? []}
         tone="muted"
       />
+
+      {beforeCta}
 
       <CtaStrip />
     </>
