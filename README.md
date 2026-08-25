@@ -21,7 +21,7 @@ Dependency footprint is deliberately lean — no UI component library is bundled
 ## Getting started
 
 Requires **Node 18.18+** (Node 20+ recommended).
-
+Source repository migrated to psimmons-hash on 25 August 2026.
 ```bash
 npm install      # install dependencies
 npm run dev      # start dev server → http://localhost:3000
