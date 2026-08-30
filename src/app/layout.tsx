@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Barlow_Condensed } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { SITE } from "@/lib/site";
 import NavigationProgress from "@/components/NavigationProgress";
@@ -93,6 +94,11 @@ export default function RootLayout({
       <body>
         <NavigationProgress />
         {children}
+        <Script
+          src="https://www.hvacrgroup.com.au/outreach-agent.js"
+          id="hvacr-outreach-agent"
+          strategy="lazyOnload"
+        />
         <Analytics />
       </body>
     </html>
