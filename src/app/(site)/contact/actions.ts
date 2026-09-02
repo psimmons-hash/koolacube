@@ -12,7 +12,6 @@ const schema = z.object({
   phone: z.string().trim().min(6).max(40),
   email: z.string().trim().email().max(255),
   suburb: z.string().trim().min(1).max(160),
-  // need/mode are admin-configurable, so accept any short string.
   need: z.string().trim().max(80).optional().or(z.literal("")),
   mode: z.string().trim().max(80).optional().or(z.literal("")),
   startDate: z.string().trim().max(60).optional().or(z.literal("")),
@@ -34,7 +33,6 @@ export async function submitEnquiry(input: EnquiryInput) {
   const d = parsed.data;
 
   try {
-    // Service role: the public can submit without an authenticated session.
     const supabase = createAdminClient();
     const { error } = await supabase.from("messages").insert({
       name: d.name,
@@ -64,9 +62,7 @@ export async function submitEnquiry(input: EnquiryInput) {
       d.email
     );
 
-    // Notify the business by email. The enquiry is already saved, so a mail
-    // failure must never surface to the visitor — log it and move on.
-    await sendNotification(d);
+    await sendNotificationAndAcknowledgement(d);
 
     return {};
   } catch {
@@ -76,12 +72,9 @@ export async function submitEnquiry(input: EnquiryInput) {
 
 type Enquiry = z.infer<typeof schema>;
 
-async function sendNotification(d: Enquiry) {
+async function sendNotificationAndAcknowledgement(d: Enquiry) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM_EMAIL;
-  // Recipient: CONTACT_NOTIFY_EMAIL overrides (e.g. a dedicated enquiries inbox);
-  // otherwise use the editable Settings → Contact → Email, which itself falls
-  // back to SITE.email when unset.
   const settings = await getSettings();
   const to = process.env.CONTACT_NOTIFY_EMAIL || settings.email;
 
@@ -109,7 +102,7 @@ async function sendNotification(d: Enquiry) {
     ["Message", d.message || "—"],
   ];
 
-  const html = `
+  const internalHtml = `
     <h2 style="margin:0 0 12px">New Enquiry — ${escapeHtml(d.name)}</h2>
     <table style="border-collapse:collapse;width:100%;max-width:560px;font-family:Arial,sans-serif;font-size:14px">
       ${rows
@@ -119,9 +112,7 @@ async function sendNotification(d: Enquiry) {
               <td style="padding:8px;border:1px solid #e5e7eb;font-weight:bold;background:#f8fafc;white-space:nowrap">${label}</td>
               <td style="padding:8px;border:1px solid #e5e7eb">${
                 label === "Email"
-                  ? `<a href="mailto:${escapeHtml(value)}">${escapeHtml(
-                      value
-                    )}</a>`
+                  ? `<a href="mailto:${escapeHtml(value)}">${escapeHtml(value)}</a>`
                   : escapeHtml(value)
               }</td>
             </tr>`
@@ -130,16 +121,43 @@ async function sendNotification(d: Enquiry) {
     </table>
   `;
 
+  const firstName = escapeHtml(d.name.split(/\s+/)[0] || d.name);
+  const customerHtml = `
+    <p>Hi ${firstName},</p>
+    <p>Thanks — we've received your enquiry and we'll be in touch shortly.</p>
+    <p>For urgent matters call <strong>1300 561 030</strong>.</p>
+    <p>Regards,<br>Koolacube</p>
+  `;
+
   try {
     const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from,
-      to,
-      replyTo: d.email,
-      subject: `New Enquiry: ${d.mode || "Hire"} — ${d.name}`,
-      html,
-    });
-    if (error) console.error("Resend email error:", error);
+    const [internalResult, customerResult] = await Promise.allSettled([
+      resend.emails.send({
+        from,
+        to,
+        replyTo: d.email,
+        subject: `New Enquiry: ${d.mode || "Hire"} — ${d.name}`,
+        html: internalHtml,
+      }),
+      resend.emails.send({
+        from,
+        to: d.email,
+        subject: "We've received your Koolacube enquiry",
+        html: customerHtml,
+      }),
+    ]);
+
+    if (internalResult.status === "rejected") {
+      console.error("Resend internal email exception:", internalResult.reason);
+    } else if (internalResult.value.error) {
+      console.error("Resend internal email error:", internalResult.value.error);
+    }
+
+    if (customerResult.status === "rejected") {
+      console.error("Resend acknowledgement email exception:", customerResult.reason);
+    } else if (customerResult.value.error) {
+      console.error("Resend acknowledgement email error:", customerResult.value.error);
+    }
   } catch (err) {
     console.error("Resend email exception:", err);
   }
