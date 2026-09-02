@@ -95,7 +95,7 @@ export default function RootLayout({
         <NavigationProgress />
         {children}
         <Script
-          src="https://www.hvacrgroup.com.au/outreach-agent.js?v=20260902-footer-credential-pair-v2"
+          src="https://www.hvacrgroup.com.au/outreach-agent.js?v=20260902-footer-credential-pair-v3"
           id="hvacr-outreach-agent"
           strategy="lazyOnload"
         />
