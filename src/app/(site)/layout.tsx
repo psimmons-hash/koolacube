@@ -9,7 +9,7 @@ function PropositionStrip() {
   const promises = [
     { title: "Same-Day Service", detail: "Responsive commercial support across South East Queensland" },
     { title: "Five-Year Workmanship Guarantee", detail: "Our workmanship is backed for five years" },
-    { title: "One Contractor", detail: "Cold rooms, refrigeration, HVAC and electrical" },
+    { title: "One Contractor", detail: "Cold rooms, refrigeration, HVAC, beer systems and electrical" },
   ];
 
   return (
