@@ -19,6 +19,8 @@ const entries: Entry[] = [
   { path: "/buy/custom", priority: 0.7, changeFrequency: "monthly" },
   { path: "/available-units", priority: 0.8, changeFrequency: "weekly" },
   { path: "/industries", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/blog", priority: 0.6, changeFrequency: "weekly" },
+  { path: "/blog/cold-storage-for-tourism-resorts-attractions", priority: 0.7, changeFrequency: "monthly" },
   { path: "/service-areas", priority: 0.7, changeFrequency: "monthly" },
   { path: "/about", priority: 0.5, changeFrequency: "monthly" },
   { path: "/contact", priority: 0.6, changeFrequency: "monthly" },
