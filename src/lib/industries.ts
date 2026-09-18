@@ -85,6 +85,29 @@ export const DEFAULT_INDUSTRIES: Industry[] = [
     is_published: true,
   },
   {
+    id: "tourism",
+    slug: "tourism-resorts-attractions",
+    icon: "Hotel",
+    name: "Tourism, Resorts & Attractions",
+    tagline: "Relocatable Cold Storage for Resorts, Attractions & Tourism Venues",
+    intro:
+      "Tourism operators often face seasonal peaks, difficult site access and limited back-of-house storage. Koolacube provides relocatable cold rooms and freezer rooms for resorts, attractions, accommodation venues and tourism operations that need dependable extra capacity.",
+    challenges: [
+      "Seasonal and holiday-period demand spikes",
+      "Limited or difficult-access back-of-house storage",
+      "Need for extra capacity during refurbishments or major events",
+      "Reliable cold storage where permanent construction is impractical",
+    ],
+    helps: [
+      "Relocatable cold rooms and freezer rooms for long-term commercial use",
+      "Extra onsite capacity without permanent building works",
+      "Suitable for food, beverages and back-of-house stock",
+      "Maintenance and breakdown support within our service area",
+    ],
+    display_order: 4,
+    is_published: true,
+  },
+  {
     id: "construction",
     slug: "construction",
     icon: "HardHat",
@@ -120,7 +143,10 @@ export async function getPublishedIndustries(): Promise<Industry[]> {
       .order("display_order", { ascending: true });
 
     if (error || !data || data.length === 0) return DEFAULT_INDUSTRIES;
-    return data as Industry[];
+    const industries = data as Industry[];
+    const tourism = DEFAULT_INDUSTRIES.find((industry) => industry.slug === "tourism-resorts-attractions");
+    if (!tourism || industries.some((industry) => industry.slug === tourism.slug)) return industries;
+    return [...industries, tourism].sort((a, b) => a.display_order - b.display_order);
   } catch {
     return DEFAULT_INDUSTRIES;
   }
