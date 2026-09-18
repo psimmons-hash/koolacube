@@ -7,9 +7,9 @@ import { getSettings } from "@/lib/settings.server";
 
 function PropositionStrip() {
   const promises = [
-    { title: "Same-Day Service", detail: "Responsive commercial support across South East Queensland" },
-    { title: "Five-Year Workmanship Guarantee", detail: "Our workmanship is backed for five years" },
-    { title: "One Contractor", detail: "Cold rooms, refrigeration, HVAC, beer systems and electrical" },
+    { title: "Cold Room Hire & Sales", detail: "Commercial cold rooms and freezer rooms for long-term hire or purchase" },
+    { title: "Service & Breakdown Support", detail: "Maintenance and breakdown support provided within our service area" },
+    { title: "Relocatable Cold & Freezer Rooms", detail: "Flexible commercial refrigeration without permanent construction" },
     { title: "Cm3 Prequalified Contractor", detail: "Prequalified for contractor compliance and supplier onboarding" },
   ];
 
