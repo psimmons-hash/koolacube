@@ -30,7 +30,7 @@ export const STATIC_TOURISM_POST: Post = {
   title: "Cold Storage for Tourism Venues: Managing Seasonal Demand, Difficult Access and Refurbishments",
   excerpt: "How resorts, attractions, hotels and tourism operators can use relocatable cold rooms and freezer rooms to add commercial storage capacity without permanent construction.",
   category: "Tourism",
-  cover_image: "/hero-coldroom.webp",
+  cover_image: "/unit-coldroom.jpg",
   read_time: "6 min read",
   date: "19 September 2026",
   body: [
