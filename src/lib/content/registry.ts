@@ -295,7 +295,7 @@ export const CONTENT_DEFAULTS: Record<string, ContentPageData> = {
     "Cold Room Hire Brisbane | Koolacube",
     "Locations",
     "Cold Room Hire Brisbane",
-    "Long-term commercial cold room hire across greater Brisbane. Monthly hire from $440 + GST, delivery and maintenance backed by ACRO Refrigeration.",
+    "Long-term commercial cold room hire across greater Brisbane. Monthly hire from $595 + GST, delivery and maintenance backed by ACRO Refrigeration.",
     [
       "Within 50km of Deception Bay depot",
       "Maintenance support included",

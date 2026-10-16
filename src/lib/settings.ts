@@ -75,7 +75,7 @@ export const SETTINGS_DEFAULTS: EffectiveSettings = {
   ],
   footerBottomNote: "Commercial cold room hire & sales · SE Queensland",
   ctaTitle: "Talk to Koolacube about your site.",
-  ctaSubtitle: "Monthly hire from $440 + GST · Backed by ACRO Refrigeration.",
+  ctaSubtitle: "Monthly hire from $595 + GST · Backed by ACRO Refrigeration.",
 };
 
 /** Phone digits for tel: links, e.g. "1300 561 030" -> "1300561030". */

@@ -85,7 +85,7 @@ export type HomeStored = {
 export const HOME_DEFAULT: HomeStored = {
   metaTitle: "Koolacube — Long-Term Commercial Cold Room Hire | SE QLD",
   metaDescription:
-    "Relocatable cold rooms and freezer rooms for businesses across Brisbane, Gold Coast and SE QLD. Monthly hire from $440 + GST. Delivery, setup and maintenance backed by ACRO Refrigeration.",
+    "Relocatable cold rooms and freezer rooms for businesses across Brisbane, Gold Coast and SE QLD. Monthly hire from $595 + GST. Delivery, setup and maintenance backed by ACRO Refrigeration.",
 
   heroBadge: "Commercial Cold Storage · SE QLD",
   heroTitleLine1: "Long-Term Cold Room Hire",
@@ -104,7 +104,7 @@ export const HOME_DEFAULT: HomeStored = {
   productsHeading:
     "Commercial cold storage, priced for the way businesses actually use it.",
   products: [
-    { icon: "Snowflake", type: "Cold Room", price: 440, daily: "14.47", img: "/unit-coldroom.jpg", blurb: "+2°C to +8°C — produce, dairy, beverages, packaged goods." },
+    { icon: "Snowflake", type: "Cold Room", price: 595, daily: "19.56", img: "/unit-coldroom.jpg", blurb: "+2°C to +8°C — produce, dairy, beverages, packaged goods." },
     { icon: "Thermometer", type: "Freezer Room", price: 750, daily: "24.66", img: "/unit-freezer.jpg", blurb: "Down to -22°C — meat, seafood, frozen stock." },
     { icon: "Layers", type: "Dual Temp Room", price: 850, daily: "27.95", img: "/unit-dual.jpg", blurb: "Independent cold + freezer compartments in one unit." },
   ],
@@ -165,7 +165,7 @@ export const HOME_DEFAULT: HomeStored = {
   availableHeading: "Units currently in our fleet",
   availableViewAll: "View all available units",
   availableUnits: [
-    { type: "Cold Room — 3m x 2.4m", dims: "Internal 2.8 × 2.2 × 2.1 m", power: "240V / 15A", price: "$440 / mo + GST", img: "/unit-coldroom.jpg" },
+    { type: "Cold Room — 3m x 2.4m", dims: "Internal 2.8 × 2.2 × 2.1 m", power: "240V / 15A", price: "$595 / mo + GST", img: "/unit-coldroom.jpg" },
     { type: "Freezer Room — 3m x 2.4m", dims: "Internal 2.8 × 2.2 × 2.1 m", power: "240V / 15A", price: "$750 / mo + GST", img: "/unit-freezer.jpg" },
     { type: "Dual Temp — 4m x 2.4m", dims: "Cold + Freezer compartments", power: "415V 3-phase", price: "$850 / mo + GST", img: "/unit-dual.jpg" },
   ],

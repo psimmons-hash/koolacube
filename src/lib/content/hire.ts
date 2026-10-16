@@ -128,7 +128,7 @@ export const HIRE_DEFAULTS: Record<string, HireStored> = {
     useCasesTitle: "Use Cases",
     useCasesIntro: "Our portable cold rooms are trusted across a wide range of industries:",
     useCases: defaultUseCases,
-    monthlyPriceFrom: 440,
+    monthlyPriceFrom: 595,
   },
 
   "/hire/freezer-room": {
@@ -316,6 +316,6 @@ export const HIRE_DEFAULTS: Record<string, HireStored> = {
       { title: "Construction & Industrial", desc: "Secure cold storage for long-running remote sites, camps and projects." },
       { title: "Retail & Supermarkets", desc: "Extra chilled and frozen capacity to support trading through the year." },
     ],
-    monthlyPriceFrom: 440,
+    monthlyPriceFrom: 595,
   },
 };
