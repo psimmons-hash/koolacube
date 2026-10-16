@@ -5,7 +5,17 @@ import { getPageContent } from "@/lib/content/page-content.server";
 
 /** Effective data for a content-template route (DB override over default). */
 export async function getContentPage(path: string): Promise<ContentPageData> {
-  return getPageContent(path, CONTENT_DEFAULTS[path]);
+  const data = await getPageContent(path, CONTENT_DEFAULTS[path]);
+  if (path !== "/cold-room-hire-brisbane") return data;
+
+  // Correct the legacy monthly rate in saved CMS copy as well as defaults.
+  const currentPrice = (text: string) => text.replace(/\$440\b/g, () => "$595");
+  return {
+    ...data,
+    intro: currentPrice(data.intro),
+    metaDescription: currentPrice(data.metaDescription),
+    bullets: data.bullets.map(currentPrice),
+  };
 }
 
 /** Shared <metadata> for a content-template route. */
