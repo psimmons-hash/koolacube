@@ -47,11 +47,11 @@ export async function buyPageMetadata(path: string): Promise<Metadata> {
   return {
     alternates: { canonical: path },
     title: d.metaTitle,
-    description: d.metaDescription,
+    description: path === "/buy/new" ? "Buy new commercial cold rooms, freezer rooms and dual-temperature units in SE Queensland. Discuss size, site access and delivery for a tailored quote." : d.metaDescription,
     openGraph: {
       images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
       title: d.metaTitle,
-      description: d.metaDescription,
+      description: path === "/buy/new" ? "Buy new commercial cold rooms, freezer rooms and dual-temperature units in SE Queensland. Discuss size, site access and delivery for a tailored quote." : d.metaDescription,
     },
   };
 }
@@ -142,3 +142,4 @@ function ExHireRelatedLinks() {
     </section>
   );
 }
+

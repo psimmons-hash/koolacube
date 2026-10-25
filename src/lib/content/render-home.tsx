@@ -21,11 +21,11 @@ export async function homeMetadata(): Promise<Metadata> {
   return {
     alternates: { canonical: "/" },
     title: d.metaTitle,
-    description: d.metaDescription,
+    description: "Long-term commercial cold room hire from $595 + GST per month in SE Queensland. Explore chilled and frozen storage, delivery and maintenance support.",
     openGraph: {
       images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
       title: d.metaTitle,
-      description: d.metaDescription,
+      description: "Long-term commercial cold room hire from $595 + GST per month in SE Queensland. Explore chilled and frozen storage, delivery and maintenance support.",
     },
   };
 }
@@ -461,3 +461,4 @@ function SectionTag({
     </div>
   );
 }
+

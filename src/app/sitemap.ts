@@ -9,6 +9,7 @@ type Entry = {
 
 // Priority reflects relative importance: home > core hire/buy > locations/industries > info.
 const entries: Entry[] = [
+  { path: "/blog/inspecting-ex-hire-cold-room-before-buying", priority: 0.6, changeFrequency: "monthly" },
   { path: "/", priority: 1.0, changeFrequency: "weekly" },
   { path: "/hire/cold-room", priority: 0.9, changeFrequency: "weekly" },
   { path: "/hire/freezer-room", priority: 0.9, changeFrequency: "weekly" },
@@ -47,3 +48,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: e.priority,
   }));
 }
+

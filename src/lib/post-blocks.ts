@@ -4,7 +4,7 @@ import { z } from "zod";
 // Ported from acrorefrigeration's blog content-block system.
 
 export type LeafContentBlock =
-  | { type: "paragraph"; text: string; style?: "paragraph" | "h2" | "h3" | "h4" }
+  | { type: "paragraph"; text: string; format?: "markdown-links"; style?: "paragraph" | "h2" | "h3" | "h4" }
   | { type: "image"; src: string; alt?: string; caption?: string }
   | { type: "blockquote"; text: string; cite?: string }
   | { type: "list"; style: "bullet" | "number" | "letter"; items: string[] }
@@ -73,6 +73,7 @@ export type PostSection = {
 
 const paragraphSchema = z.object({
   type: z.literal("paragraph"),
+  format: z.literal("markdown-links").optional(),
   style: z.enum(["paragraph", "h2", "h3", "h4"]).optional(),
   text: z.string().min(1, "Cannot be empty"),
 });
@@ -302,3 +303,4 @@ export function normalizeBody(raw: unknown): PostSection[] {
     })
     .filter((s) => s.heading || s.blocks.length > 0);
 }
+

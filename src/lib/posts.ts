@@ -24,6 +24,131 @@ export type Post = {
 
 
 
+const APPROVED_CTR_POST: Post = {
+  "id": "editorial-ex-hire-inspection-20261025",
+  "slug": "inspecting-ex-hire-cold-room-before-buying",
+  "title": "What to check when inspecting an ex hire cold room",
+  "excerpt": "Inspecting a second-hand or ex-hire cold room? Check the actual unit, service history, site requirements and delivery scope before agreeing to buy.",
+  "category": "Buying Guides",
+  "cover_image": "",
+  "read_time": "3 min read",
+  "date": "25 October 2026",
+  "body": [
+    {
+      "heading": "",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "An ex-hire cold room can be worth considering when your business needs its own chilled or frozen storage. Before deciding, inspect the actual unit and establish how it will fit your stock, site and operating requirements.",
+          "format": "markdown-links"
+        },
+        {
+          "type": "paragraph",
+          "text": "Two rooms with similar external dimensions can differ in equipment, condition and configuration. Base the purchase on the unit being offered, with its specification and inclusions recorded in writing.",
+          "format": "markdown-links"
+        }
+      ]
+    },
+    {
+      "heading": "Confirm the storage requirement first",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Describe the products to be stored, the required storage conditions, the amount of stock and how often deliveries arrive. Explain whether staff will move cartons, trolleys or pallets through the doorway.",
+          "format": "markdown-links"
+        },
+        {
+          "type": "paragraph",
+          "text": "Check usable internal space as well as external dimensions. Allow for the storage layout, equipment clearances and access needed in normal use. A room that physically fits the site may still be awkward for the way your team handles stock.",
+          "format": "markdown-links"
+        }
+      ]
+    },
+    {
+      "heading": "Inspect the room and ask for its history",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Look at accessible panels, the floor, door, seals and fittings. Ask the supplier to identify repairs, wear and any items that will be addressed before delivery. Photographs of the actual unit help keep the agreed condition clear.",
+          "format": "markdown-links"
+        },
+        {
+          "type": "paragraph",
+          "text": "Request the equipment identification and available service history. Ask what inspection and operating checks have been completed, what they covered and whether any work remains outstanding.",
+          "format": "markdown-links"
+        },
+        {
+          "type": "paragraph",
+          "text": "An operating demonstration is useful information, but it should be understood in context. Ask how the proposed unit is expected to meet your intended storage duty rather than relying only on a displayed temperature during an inspection.",
+          "format": "markdown-links"
+        }
+      ]
+    },
+    {
+      "heading": "Check the destination before arranging transport",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Provide the site address, photographs and the proposed position. Discuss access width and height, delivery vehicle access, the unloading method and any obstructions or restricted working hours.",
+          "format": "markdown-links"
+        },
+        {
+          "type": "paragraph",
+          "text": "Have the supplier confirm the actual unit's power requirements and the preparation needed at your premises. Include ventilation, servicing access and the suitability of the proposed base in the discussion. Arrange any necessary site work before the delivery date is committed.",
+          "format": "markdown-links"
+        }
+      ]
+    },
+    {
+      "heading": "Compare the full purchase scope",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Ask the quotation to identify the specific unit, included equipment and accessories, transport, unloading, setup and any separately priced work. Confirm how GST is treated and what needs to be ready at the site.",
+          "format": "markdown-links"
+        },
+        {
+          "type": "paragraph",
+          "text": "Read the written warranty or sale terms and ask how faults are reported after delivery. Establish what support is available, who provides it and what is excluded. Compare those terms with the condition and price of the actual unit.",
+          "format": "markdown-links"
+        }
+      ]
+    },
+    {
+      "heading": "Choose the option that fits the business",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "If available ex-hire stock does not suit the required duty or site, compare it with a [new cold room](/buy/new) or [commercial cold room hire](/hire/cold-room). The available options may have different specifications and delivery requirements.",
+          "format": "markdown-links"
+        },
+        {
+          "type": "paragraph",
+          "text": "Koolacube offers [second-hand and ex-hire cold rooms and freezer rooms](/buy/ex-hire) from its commercial fleet. Units are inspected and tested before sale. Call 1300 561 030 to discuss current stock, arrange an inspection and confirm suitability for your premises.",
+          "format": "markdown-links"
+        }
+      ]
+    }
+  ],
+  "related_links": [
+    {
+      "label": "new cold room",
+      "href": "/buy/new"
+    },
+    {
+      "label": "commercial cold room hire",
+      "href": "/hire/cold-room"
+    },
+    {
+      "label": "second-hand and ex-hire cold rooms and freezer rooms",
+      "href": "/buy/ex-hire"
+    }
+  ],
+  "is_published": true,
+  "created_at": "2026-10-25T00:00:00.000Z",
+  "updated_at": "2026-10-25T00:00:00.000Z"
+};
+
 export const STATIC_TOURISM_POST: Post = {
   id: "static-tourism-cold-storage-20260919",
   slug: "cold-storage-for-tourism-resorts-attractions",
@@ -93,6 +218,8 @@ export const STATIC_TOURISM_POST: Post = {
   updated_at: "2026-09-19T00:00:00.000Z"
 };
 
+const STATIC_POSTS: Post[] = [APPROVED_CTR_POST, STATIC_TOURISM_POST];
+
 function hydrate(row: Record<string, unknown>): Post {
   return {
     ...(row as Post),
@@ -110,13 +237,11 @@ export async function getPublishedPosts(): Promise<Post[]> {
       .select("*")
       .eq("is_published", true)
       .order("created_at", { ascending: false });
-    if (error || !data) return [STATIC_TOURISM_POST];
+    if (error || !data) return STATIC_POSTS;
     const posts = data.map(hydrate);
-    return posts.some((post) => post.slug === STATIC_TOURISM_POST.slug)
-      ? posts
-      : [STATIC_TOURISM_POST, ...posts];
+    return [...STATIC_POSTS, ...posts.filter((post) => !STATIC_POSTS.some((item) => item.slug === post.slug))];
   } catch {
-    return [STATIC_TOURISM_POST];
+    return STATIC_POSTS;
   }
 }
 
@@ -130,11 +255,11 @@ export async function getRecentPosts(limit = 3): Promise<Post[]> {
       .eq("is_published", true)
       .order("created_at", { ascending: false })
       .limit(limit);
-    if (error || !data) return [STATIC_TOURISM_POST].slice(0, limit);
-    const posts = data.map(hydrate).filter((post) => post.slug !== STATIC_TOURISM_POST.slug);
-    return [STATIC_TOURISM_POST, ...posts].slice(0, limit);
+    if (error || !data) return STATIC_POSTS.slice(0, limit);
+    const posts = data.map(hydrate).filter((post) => !STATIC_POSTS.some((item) => item.slug === post.slug));
+    return [...STATIC_POSTS, ...posts].slice(0, limit);
   } catch {
-    return [STATIC_TOURISM_POST].slice(0, limit);
+    return STATIC_POSTS.slice(0, limit);
   }
 }
 
@@ -153,23 +278,21 @@ export async function getPostsLinkingTo(href: string, limit = 3): Promise<Post[]
       .contains("related_links", [{ href }])
       .order("created_at", { ascending: false })
       .limit(limit);
-    const staticMatches = STATIC_TOURISM_POST.related_links.some((link) => link.href === href)
-      ? [STATIC_TOURISM_POST]
-      : [];
+    const staticMatches = STATIC_POSTS.filter((post) => post.related_links.some((link) => link.href === href));
     if (error) return staticMatches.length ? staticMatches.slice(0, limit) : getRecentPosts(limit);
-    const posts = (data ?? []).map(hydrate).filter((post) => post.slug !== STATIC_TOURISM_POST.slug);
+    const posts = (data ?? []).map(hydrate).filter((post) => !STATIC_POSTS.some((item) => item.slug === post.slug));
     if (staticMatches.length === 0 && posts.length === 0) return getRecentPosts(limit);
     return [...staticMatches, ...posts].slice(0, limit);
   } catch {
-    return STATIC_TOURISM_POST.related_links.some((link) => link.href === href)
-      ? [STATIC_TOURISM_POST].slice(0, limit)
-      : getRecentPosts(limit);
+    const staticMatches = STATIC_POSTS.filter((post) => post.related_links.some((link) => link.href === href));
+    return staticMatches.length ? staticMatches.slice(0, limit) : getRecentPosts(limit);
   }
 }
 
 /** A single published post by slug, or null if not found / unpublished. */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
-  if (slug === STATIC_TOURISM_POST.slug) return STATIC_TOURISM_POST;
+  const staticPost = STATIC_POSTS.find((post) => post.slug === slug);
+  if (staticPost) return staticPost;
   try {
     const supabase = await createClient();
     const { data, error } = await supabase
@@ -193,11 +316,11 @@ export async function getPublishedSlugs(): Promise<string[]> {
       .from("posts")
       .select("slug")
       .eq("is_published", true);
-    if (error || !data) return [STATIC_TOURISM_POST.slug];
+    if (error || !data) return STATIC_POSTS.map((post) => post.slug);
     const slugs = data.map((r) => r.slug as string);
-    return slugs.includes(STATIC_TOURISM_POST.slug) ? slugs : [STATIC_TOURISM_POST.slug, ...slugs];
+    return [...new Set([...STATIC_POSTS.map((post) => post.slug), ...slugs])];
   } catch {
-    return [STATIC_TOURISM_POST.slug];
+    return STATIC_POSTS.map((post) => post.slug);
   }
 }
 
@@ -219,3 +342,4 @@ export async function getAllPosts(): Promise<Post[]> {
   if (error || !data) return [];
   return data.map(hydrate);
 }
+

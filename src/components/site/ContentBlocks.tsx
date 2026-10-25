@@ -141,6 +141,13 @@ function renderRichText(text: string) {
   );
 }
 
+function InlineLinks({ text }: { text: string }) {
+  return text.split(/(\[[^\]]+\]\(\/(?!\/)[^)\s]+\))/g).map((part, index) => {
+    const match = part.match(/^\[([^\]]+)\]\((\/(?!\/)[^)\s]+)\)$/);
+    return match ? <a key={index} href={match[2]} className="underline underline-offset-4 hover:text-primary">{match[1]}</a> : part;
+  });
+}
+
 function Block({ block }: { block: ContentBlock }) {
   switch (block.type) {
     case "paragraph":
@@ -150,7 +157,7 @@ function Block({ block }: { block: ContentBlock }) {
         return <h3 className="text-xl font-bold leading-tight text-foreground">{block.text}</h3>;
       if (block.style === "h4")
         return <h4 className="text-base font-semibold leading-snug text-foreground">{block.text}</h4>;
-      return <p className="leading-relaxed text-foreground/80">{block.text}</p>;
+      return <p className="leading-relaxed text-foreground/80">{block.format === "markdown-links" ? <InlineLinks text={block.text} /> : block.text}</p>;
 
     case "image":
       return (
@@ -634,3 +641,4 @@ export function ContentBlocks({ blocks }: { blocks: ContentBlock[] }) {
     </div>
   );
 }
+
