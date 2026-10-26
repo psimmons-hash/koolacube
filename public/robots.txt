@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://koolacube.com.au/sitemap.xml
+Sitemap: https://www.koolacube.com.au/sitemap.xml
