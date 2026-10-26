@@ -100,6 +100,9 @@ export default function RootLayout({
           strategy="lazyOnload"
         />
         <Analytics />
+        <Script id="metricool-tracker" strategy="afterInteractive">
+          {"(function(){if(![\"koolacube.com.au\",\"www.koolacube.com.au\"].includes(window.location.hostname)||/^\\/(admin|auth)(\\/|$)/.test(window.location.pathname))return;function loadScript(a){var b=document.getElementsByTagName(\"head\")[0],c=document.createElement(\"script\");c.type=\"text/javascript\";c.src=\"https://tracker.metricool.com/resources/be.js\";c.async=true;c.onload=a;b.appendChild(c)}loadScript(function(){beTracker.t({hash:\"b56fbbc46f32c3f64eea4bae79a54dc8\"})});})();"}
+        </Script>
       </body>
     </html>
   );
