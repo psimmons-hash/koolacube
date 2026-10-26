@@ -4,11 +4,11 @@
  */
 export const SITE = {
   name: "Koolacube",
-  url: "https://koolacube.com.au",
+  url: "https://www.koolacube.com.au",
   description:
     "Long-term commercial cold room and freezer room hire and sales across Brisbane, Gold Coast and SE Queensland. Monthly hire, delivery, setup and maintenance support.",
   tagline: "Commercial Cold Room & Freezer Hire SE Queensland",
-  logo: "https://koolacube.com.au/koolacube-logo.webp",
+  logo: "https://www.koolacube.com.au/koolacube-logo.webp",
   ogImage: "/hero-coldroom.jpg",
   locale: "en_AU",
   parent: "HVACR Group / ACRO Refrigeration",
