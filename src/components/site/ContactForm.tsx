@@ -1,5 +1,8 @@
 "use client";
 
+import CallbackRequest from "@/components/CallbackRequest";
+import EnquiryPhotos from "@/components/EnquiryPhotos";
+import { preparePhotos } from "@/lib/enquiry-photos";
 import { useState } from "react";
 import { Check } from "lucide-react";
 import { submitEnquiry } from "@/app/(site)/contact/actions";
@@ -17,10 +20,12 @@ export function ContactForm({ config }: { config: ContactFormConfig }) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  const [detailsOpen, setDetailsOpen] = useState(config.optionalFields.some(field => field.visible && field.required && ["startDate", "duration", "product", "volume", "power"].includes(field.key)));
   const visibleOptional = config.optionalFields.filter((f) => f.visible);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (sending) return;
     const fd = new FormData(e.currentTarget);
     const get = (k: string) => String(fd.get(k) || "").trim();
 
@@ -57,19 +62,21 @@ export function ContactForm({ config }: { config: ContactFormConfig }) {
     }
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
+      if (["startDate", "duration", "product", "volume", "power"].some(key => errs[key])) setDetailsOpen(true);
       return;
     }
 
     setErrors({});
     setServerError(null);
     setSending(true);
-    const result = await submitEnquiry(data);
-    setSending(false);
-    if (result?.error) {
-      setServerError(result.error);
-      return;
-    }
-    setSubmitted(true);
+    try {
+      const files = fd.getAll("photos").filter((value): value is File => value instanceof File);
+      const attachments = await preparePhotos(files);
+      const result = await submitEnquiry({ ...data, attachments });
+      if (result?.error) { setServerError(result.error); return; }
+      setSubmitted(true);
+    } catch (error) { setServerError(error instanceof Error ? error.message : "Unable to send. Please try again or call us."); }
+    finally { setSending(false); }
   }
 
   if (submitted) {
@@ -92,6 +99,7 @@ export function ContactForm({ config }: { config: ContactFormConfig }) {
     visibleOptional.find((f) => f.key === key);
 
   return (
+    <div><CallbackRequest brand="Koolacube" phone="1300 561 030" />
     <form
       onSubmit={onSubmit}
       noValidate
@@ -163,6 +171,9 @@ export function ContactForm({ config }: { config: ContactFormConfig }) {
         </div>
       </fieldset>
 
+      <details open={detailsOpen} onToggle={event => setDetailsOpen(event.currentTarget.open)} className="rounded border border-border p-4">
+        <summary className="cursor-pointer py-2 font-semibold">Add storage and site details (optional unless marked *)</summary>
+        <p className="my-3 text-sm text-muted-foreground">These details help us prepare a quote. You can send your initial enquiry without them unless a field is marked required.</p>
       {(showOptional("startDate") ||
         showOptional("duration") ||
         showOptional("product") ||
@@ -219,25 +230,30 @@ export function ContactForm({ config }: { config: ContactFormConfig }) {
         </fieldset>
       )}
 
+      </details>
+
       {showOptional("message") && (
         <div>
-          <label className="text-sm font-semibold text-foreground">
+          <label htmlFor="contact-message" className="text-sm font-semibold text-foreground">
             {fieldLabel(config, "message")}
             {fieldReq(config, "message") && (
               <span className="ml-1 text-orange">*</span>
             )}
           </label>
           <textarea
+            id="contact-message"
             name="message"
             rows={5}
             maxLength={2000}
-            className="mt-2 w-full rounded border border-border bg-white px-3 py-2.5 text-sm outline-none focus:border-cold-blue"
+            className="mt-2 w-full rounded border border-border bg-white px-3 py-2.5 text-base outline-none focus:border-cold-blue"
           />
           {errors.message && (
             <p className="mt-1 text-xs text-orange">{errors.message}</p>
           )}
         </div>
       )}
+
+      <EnquiryPhotos />
 
       {config.acknowledgeText && (
         <>
@@ -256,7 +272,7 @@ export function ContactForm({ config }: { config: ContactFormConfig }) {
       )}
 
       {serverError && (
-        <p className="rounded border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+        <p role="alert" className="rounded border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
           {serverError}
         </p>
       )}
@@ -268,7 +284,7 @@ export function ContactForm({ config }: { config: ContactFormConfig }) {
       >
         {sending ? "Sending…" : config.submitLabel}
       </button>
-    </form>
+    </form></div>
   );
 }
 
@@ -296,15 +312,17 @@ function Field({
 }) {
   return (
     <div>
-      <label className="text-sm font-semibold text-foreground">
+      <label htmlFor={`contact-${name}`} className="text-sm font-semibold text-foreground">
         {label}
         {required && <span className="ml-1 text-orange">*</span>}
       </label>
       <input
+        id={`contact-${name}`}
+        autoComplete={({ name: "name", business: "organization", phone: "tel", email: "email", suburb: "address-level2" } as Record<string, string>)[name]}
         name={name}
         type={type}
         placeholder={placeholder}
-        className="mt-2 w-full rounded border border-border bg-white px-3 py-2.5 text-sm outline-none focus:border-cold-blue"
+        className="mt-2 w-full rounded border border-border bg-white px-3 py-2.5 text-base outline-none focus:border-cold-blue"
       />
       {error && <p className="mt-1 text-xs text-orange">{error}</p>}
     </div>
@@ -324,11 +342,12 @@ function SelectField({
 }) {
   return (
     <div>
-      <label className="text-sm font-semibold text-foreground">{label}</label>
+      <label htmlFor={`contact-${name}`} className="text-sm font-semibold text-foreground">{label}</label>
       <select
+        id={`contact-${name}`}
         name={name}
         defaultValue={options[0]}
-        className="mt-2 w-full rounded border border-border bg-white px-3 py-2.5 text-sm outline-none focus:border-cold-blue"
+        className="mt-2 w-full rounded border border-border bg-white px-3 py-2.5 text-base outline-none focus:border-cold-blue"
       >
         {options.map((o) => (
           <option key={o} value={o}>
@@ -340,3 +359,4 @@ function SelectField({
     </div>
   );
 }
+

@@ -1,3 +1,4 @@
+import MobileContactBar from "@/components/MobileContactBar";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { JsonLd } from "@/components/JsonLd";
@@ -44,6 +45,8 @@ export default async function SiteLayout({
       <PropositionStrip />
       <main className="flex-1">{children}</main>
       <SiteFooter settings={settings} />
+      <MobileContactBar phone={settings.telephoneE164} label="Hire Enquiry" />
     </div>
   );
 }
+

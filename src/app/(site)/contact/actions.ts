@@ -1,5 +1,6 @@
 "use server";
 
+import { validateAttachments } from "@/lib/enquiry-attachments";
 import { z } from "zod";
 import { Resend } from "resend";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -7,6 +8,7 @@ import { logActivity } from "@/lib/supabase/logging";
 import { getSettings } from "@/lib/settings.server";
 
 const schema = z.object({
+  attachments: z.array(z.object({ filename: z.string().max(120), content: z.string().max(266664) })).max(3).default([]),
   name: z.string().trim().min(1).max(120),
   business: z.string().trim().max(160).optional().or(z.literal("")),
   phone: z.string().trim().min(6).max(40),
@@ -31,6 +33,8 @@ export async function submitEnquiry(input: EnquiryInput) {
     return { error: "Please check the form and try again." };
   }
   const d = parsed.data;
+  try { d.attachments = validateAttachments(d.attachments); }
+  catch { return { error: "Invalid photos. Please select the photos again." }; }
 
   try {
     const supabase = createAdminClient();
@@ -62,7 +66,8 @@ export async function submitEnquiry(input: EnquiryInput) {
       d.email
     );
 
-    await sendNotificationAndAcknowledgement(d);
+    const notified = await sendNotificationAndAcknowledgement(d);
+    if (d.attachments.length && !notified) return { error: "Your enquiry was saved, but photos could not be sent. Please call 1300 561 030 to arrange sending them." };
 
     return {};
   } catch {
@@ -82,7 +87,7 @@ async function sendNotificationAndAcknowledgement(d: Enquiry) {
     console.warn(
       "Enquiry email skipped: RESEND_API_KEY or RESEND_FROM_EMAIL not set."
     );
-    return;
+    return false;
   }
 
   const rows: [string, string][] = [
@@ -136,6 +141,7 @@ async function sendNotificationAndAcknowledgement(d: Enquiry) {
         from,
         to,
         replyTo: d.email,
+        attachments: d.attachments,
         subject: `New Enquiry: ${d.mode || "Hire"} — ${d.name}`,
         html: internalHtml,
       }),
@@ -158,8 +164,10 @@ async function sendNotificationAndAcknowledgement(d: Enquiry) {
     } else if (customerResult.value.error) {
       console.error("Resend acknowledgement email error:", customerResult.value.error);
     }
+    return internalResult.status === "fulfilled" && !internalResult.value.error;
   } catch (err) {
     console.error("Resend email exception:", err);
+    return false;
   }
 }
 
@@ -170,3 +178,4 @@ function escapeHtml(s: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 }
+
