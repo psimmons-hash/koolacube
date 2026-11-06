@@ -137,7 +137,7 @@ export async function renderAboutPage() {
             <div className="text-xs font-semibold uppercase tracking-[0.25em] text-orange">
               {d.promiseLabel}
             </div>
-            <p className="mt-4 text-lg leading-relaxed text-foreground/80">{d.promiseText}</p>
+            <p className="mt-4 text-lg leading-relaxed text-foreground/80">{d.promiseText.replace(/\s*Promise tagline\s*/g, " ").trim()}</p>
             <p className="mt-2 font-display text-xl font-bold">{d.promiseTagline}</p>
           </div>
         </div>
