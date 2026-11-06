@@ -21,11 +21,11 @@ export async function homeMetadata(): Promise<Metadata> {
   return {
     alternates: { canonical: "/" },
     title: d.metaTitle,
-    description: "Long-term commercial cold room hire from $595 + GST per month in SE Queensland. Explore chilled and frozen storage, delivery and maintenance support.",
+    description: "Protect your stock and keep trading with long-term commercial cold-room hire in SE Queensland. Reliable storage backed by ACRO refrigeration expertise.",
     openGraph: {
       images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
       title: d.metaTitle,
-      description: "Long-term commercial cold room hire from $595 + GST per month in SE Queensland. Explore chilled and frozen storage, delivery and maintenance support.",
+      description: "Protect your stock and keep trading with long-term commercial cold-room hire in SE Queensland. Reliable storage backed by ACRO refrigeration expertise.",
     },
   };
 }
@@ -65,12 +65,12 @@ export async function renderHomePage() {
               <Snowflake className="h-3.5 w-3.5 text-orange" /> {d.heroBadge}
             </div>
             <h1 className="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
-              {d.heroTitleLine1}
+              Protect your stock.
               <br />
-              <span className="text-orange">{d.heroTitleHighlight}</span>
+              <span className="text-orange">Keep your business running.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
-              {d.heroIntro}
+              Reliable cold-room and freezer hire backed by refrigeration experts. Add the storage your operation needs without the capital cost of a permanent installation, with maintenance and breakdown support under your hire agreement. Across South East Queensland.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -162,10 +162,10 @@ export async function renderHomePage() {
             <div className="lg:col-span-5">
               <SectionTag dark>{d.positioningTag}</SectionTag>
               <h2 className="mt-3 font-display text-3xl font-bold leading-tight md:text-4xl">
-                {d.positioningHeadingPre}{" "}
-                <span className="text-orange">{d.positioningHeadingHighlight}</span>.
+                Cold storage that works{" "}
+                <span className="text-orange">as hard as your business</span>.
               </h2>
-              <p className="mt-6 text-base leading-relaxed text-white/75">{d.positioningIntro}</p>
+              <p className="mt-6 text-base leading-relaxed text-white/75">A busy kitchen, growing production or a refurbishment cannot wait for more space. Our relocatable cold rooms and freezers help protect your stock and keep operations moving, with long-term hire and purchase options to suit your business.</p>
             </div>
             <div className="lg:col-span-7">
               <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
@@ -342,9 +342,9 @@ export async function renderHomePage() {
             <div>
               <SectionTag dark>{d.trustTag}</SectionTag>
               <h2 className="mt-3 font-display text-3xl font-bold leading-tight md:text-4xl">
-                {d.trustHeading}
+                One team to call. One less thing to worry about.
               </h2>
-              <p className="mt-6 text-base leading-relaxed text-white/75">{d.trustIntro}</p>
+              <p className="mt-6 text-base leading-relaxed text-white/75">Your stock is too valuable to leave to chance. Backed by ACRO Refrigeration and HVACR Group, Koolacube combines commercial cold storage with expert maintenance and breakdown support. If a problem develops, you have refrigeration specialists to call.</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {d.trustItems.map((t) => {
@@ -416,10 +416,10 @@ export async function renderHomePage() {
       <section className="bg-navy-deep py-20 text-white">
         <div className="mx-auto max-w-4xl px-4 text-center">
           <h2 className="font-display text-4xl font-bold leading-tight md:text-5xl">
-            {d.finalCtaHeadingPre}{" "}
-            <span className="text-orange">{d.finalCtaHeadingHighlight}</span>
+            Keep your stock cold.{" "}
+            <span className="text-orange">Keep your operation moving.</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base text-white/75">{d.finalCtaIntro}</p>
+          <p className="mx-auto mt-5 max-w-2xl text-base text-white/75">Tell us what you need to store and where you need it. We will help you choose commercial cold storage with the capacity and support your business needs. Long-term hire and sales available; minimum hire terms apply.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/contact"
