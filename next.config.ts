@@ -26,6 +26,18 @@ const legacyRedirects = [
 ];
 
 const nextConfig: NextConfig = {
+  async headers() { return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(self), microphone=(self), geolocation=(self)" },
+          { key: "Content-Security-Policy", value: "object-src 'none'; base-uri 'self'; frame-ancestors 'self'" },
+        ],
+      },
+  ]; },
   // Transform barrel imports (e.g. lucide-react) into per-icon imports so only
   // the icons actually used ship to the browser — cuts unused JavaScript.
   experimental: {
@@ -47,3 +59,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
